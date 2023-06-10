@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/theme.dart';
-
 import 'package:lottie/lottie.dart';
 
-class SuccessPage extends StatelessWidget {
+class SuccessOutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget header() {
@@ -26,16 +25,13 @@ class SuccessPage extends StatelessWidget {
             //   'assets/success.png',
             //   width: 300,
             // ),
-            // SizedBox(
-            //   height: 20,
-            // ),
             SizedBox(
               width: 200,
               height: 200,
               child: LottieBuilder.asset('assets/ceklis.json'),
-            ),    
+            ),            
             Text(
-              'Admission Fee Created',
+              'Expenses Fee Created',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: medium,
@@ -45,7 +41,7 @@ class SuccessPage extends StatelessWidget {
               height: 12,
             ),
             Text(
-              'Your Admission Fee was successfully created',
+              'Your Expenses Fee was successfully created',
               style: secondaryTextStyle,
               textAlign: TextAlign.center,
             ),

@@ -6,11 +6,14 @@ import 'package:http/http.dart' as http;
 class AuthService {
   String baseUrl = 'https://api-keuangan.wikukarno.id/api';
 
+
   Future<UserModel> register({
     String name,
     String email,
     String password,
     String confirmPassword,
+
+    
   }) async {
     var url = '$baseUrl/register';
     var headers = {'Content-Type': 'application/json'};
@@ -28,6 +31,7 @@ class AuthService {
     );
 
     print(response.body);
+    
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body)['data'];

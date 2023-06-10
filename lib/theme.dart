@@ -6,6 +6,7 @@ double defaultMargin = 30.0;
 Color primaryColor = Color(0xff6C5ECF);
 Color secondaryColor = Color(0xff38ABBE);
 Color alertColor = Color(0xffED6363);
+Color orangeColor = Colors.orange;
 Color priceColor = Color(0xff2C96F1);
 Color backgroundColor1 = Color(0xff1F1D2B);
 Color backgroundColor2 = Color(0xff2B2937);

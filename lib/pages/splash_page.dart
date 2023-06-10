@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application/theme.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class _SplashPageState extends State<SplashPage> {
     // TODO: implement initState
 
     Timer(
-      Duration(seconds: 3),
+      Duration(seconds: 5),
       () => Navigator.pushNamed(context, '/sign-in'),
     );
 
@@ -24,20 +25,32 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor1,
+      backgroundColor: Colors.white,
       body: Center(
-        child: Container(
-          width: 130,
-          height: 150,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                'assets/image_splash.png',
-              ),
-            ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [        
+          Image.asset(
+            'assets/logo.png',
+            width: 250,
+            height: 250,
+          ) ,
+          SizedBox(
+            height: 5,            
           ),
+          loading()
+          ],
+          
         ),
       ),
+    
     );
+    
   }
+     Widget loading() {
+        return LoadingAnimationWidget.stretchedDots(
+        color: Color.fromARGB(229, 255, 98, 0),
+         size: 50);
+       }
+     
 }

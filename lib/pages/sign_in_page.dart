@@ -4,15 +4,16 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_application/providers/auth_provider.dart';
 import 'package:flutter_application/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../models/user_model.dart';
 
 class SignInPage extends StatelessWidget {
-
   TextEditingController emailController = TextEditingController(text: '');
   TextEditingController passwordController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
-
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     handleSignIn() async {
       if (await authProvider.login(
@@ -33,26 +34,34 @@ class SignInPage extends StatelessWidget {
     }
 
     Widget header() {
-      return Container(
-        margin: EdgeInsets.only(
-          top: 30,
-        ),
+      return SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Login',
-              style: primaryTextStyle.copyWith(
-                fontSize: 24,
-                fontWeight: semiBold,
+            Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/ilustrasi.png'))),
+            ),
+            Center(
+              child: Text(
+                'Welcome To ',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-            SizedBox(
-              height: 2,
-            ),
-            Text(
-              'Sign In to Continue',
-              style: subtitleTextStyle,
+            Center(
+              child: Text(
+                'Finance Tensai',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ],
         ),
@@ -61,19 +70,19 @@ class SignInPage extends StatelessWidget {
 
     Widget emailInput() {
       return Container(
-        margin: EdgeInsets.only(top: 70),
+        margin: EdgeInsets.only(top: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Email Address',
-              style: primaryTextStyle.copyWith(
+              style: TextStyle(
                 fontSize: 16,
                 fontWeight: medium,
               ),
             ),
             SizedBox(
-              height: 12,
+              height: 8,
             ),
             Container(
               height: 50,
@@ -81,22 +90,23 @@ class SignInPage extends StatelessWidget {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: backgroundColor2,
-                borderRadius: BorderRadius.circular(12),
-              ),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: Color.fromARGB(229, 255, 98, 0),
+                  )),
               child: Center(
                 child: Row(
                   children: [
-                    Image.asset(
-                      'assets/icon_email.png',
-                      width: 17,
+                    Icon(
+                      Icons.email,
+                      color: Colors.grey,
                     ),
                     SizedBox(
                       width: 16,
                     ),
                     Expanded(
                       child: TextFormField(
-                        style: primaryTextStyle,
                         controller: emailController,
                         decoration: InputDecoration.collapsed(
                           hintText: 'Your Email Address',
@@ -122,13 +132,13 @@ class SignInPage extends StatelessWidget {
           children: [
             Text(
               'Password',
-              style: primaryTextStyle.copyWith(
+              style: TextStyle(
                 fontSize: 16,
                 fontWeight: medium,
               ),
             ),
             SizedBox(
-              height: 12,
+              height: 8,
             ),
             Container(
               height: 50,
@@ -136,22 +146,23 @@ class SignInPage extends StatelessWidget {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: backgroundColor2,
-                borderRadius: BorderRadius.circular(12),
-              ),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: Color.fromARGB(229, 255, 98, 0),
+                  )),
               child: Center(
                 child: Row(
                   children: [
-                    Image.asset(
-                      'assets/icon_password.png',
-                      width: 17,
+                    Icon(
+                      Icons.lock,
+                      color: Colors.grey,
                     ),
                     SizedBox(
                       width: 16,
                     ),
                     Expanded(
                       child: TextFormField(
-                        style: primaryTextStyle,
                         obscureText: true,
                         controller: passwordController,
                         decoration: InputDecoration.collapsed(
@@ -172,15 +183,15 @@ class SignInPage extends StatelessWidget {
 
     Widget signInButton() {
       return Container(
-        height: 50,
+        height: 45,
         width: double.infinity,
-        margin: EdgeInsets.only(top: 30),
+        margin: EdgeInsets.only(top: 25),
         child: TextButton(
           onPressed: () {
             handleSignIn();
           },
           style: TextButton.styleFrom(
-            backgroundColor: primaryColor,
+            backgroundColor: Color.fromARGB(229, 255, 98, 0),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
@@ -215,6 +226,7 @@ class SignInPage extends StatelessWidget {
                 style: purpleTextStyle.copyWith(
                   fontSize: 12,
                   fontWeight: medium,
+                  color: Colors.blue,
                 ),
               ),
             ),
@@ -226,7 +238,7 @@ class SignInPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: backgroundColor1,
+        backgroundColor: Colors.white,
         body: Container(
           margin: EdgeInsets.symmetric(
             horizontal: defaultMargin,
