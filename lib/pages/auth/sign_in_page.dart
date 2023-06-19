@@ -4,27 +4,27 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_application/providers/auth_provider.dart';
 import 'package:flutter_application/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class SignUpPage extends StatelessWidget {
-  TextEditingController nameController = TextEditingController(text: '');
+import '../../models/user_model.dart';
+
+class SignInPage extends StatelessWidget {
   TextEditingController emailController = TextEditingController(text: '');
   TextEditingController passwordController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
-    handleSignUp() async {
-      if (await authProvider.register(
-        name: nameController.text,
+    handleSignIn() async {
+      if (await authProvider.login(
         email: emailController.text,
         password: passwordController.text,
-        confirmPassword: passwordController.text,
       )) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.green,
             content: Text(
-              'Register Successfully!',
+              'Login Successfully!',
               textAlign: TextAlign.center,
             ),
           ),
@@ -34,87 +34,43 @@ class SignUpPage extends StatelessWidget {
     }
 
     Widget header() {
-      return SingleChildScrollView(
-        padding: EdgeInsets.only(
-          top: 30,
-        ),
+      return SingleChildScrollView(       
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-             Text(
-              'Registrasi',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ), 
-            Text(
-              ''
-            ) 
-          ],
-        ),
-      );
-    }
-
-    Widget nameInput() {
-      return Container(
-        margin: EdgeInsets.only(top: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Full Name',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: medium,
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
+          mainAxisAlignment: MainAxisAlignment.center,        
+          children: [            
             Container(
-              height: 50,
-              padding: EdgeInsets.symmetric(
-                horizontal: 16,
-              ),
+              width: 250,
+              height: 150,
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Color.fromARGB(229, 255, 98, 0),)
+                  image: DecorationImage(
+                      image: AssetImage('assets/logo.png'))),
+            ),
+            Center(
+              child: Text(
+                'Welcome To ',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              child: Center(
-                child: Row(
-                  children: [
-                   Icon(
-                    Icons.person,
-                    color: Colors.grey,
-                   ),
-                    SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                        
-                        controller: nameController,
-                        decoration: InputDecoration.collapsed(
-                          hintText: 'Your Full Name',
-                          hintStyle: subtitleTextStyle,
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    )
-                  ],
+            ),
+            Center(
+              child: Text(
+                'Finance Tensai',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ],
         ),
-      );
+       );
     }
 
     Widget emailInput() {
       return Container(
-        margin: EdgeInsets.only(top: 20),
+        margin: EdgeInsets.only(top: 50),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -126,7 +82,7 @@ class SignUpPage extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 8,
             ),
             Container(
               height: 50,
@@ -134,10 +90,11 @@ class SignUpPage extends StatelessWidget {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Color.fromARGB(229, 255, 98, 0),),
-              ),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color:  Color.fromARGB(229, 255, 98, 0),
+                  )),
               child: Center(
                 child: Row(
                   children: [
@@ -146,11 +103,10 @@ class SignUpPage extends StatelessWidget {
                       color: Colors.grey,
                     ),
                     SizedBox(
-                      width: 10,
+                      width: 16,
                     ),
                     Expanded(
                       child: TextFormField(
-                        
                         controller: emailController,
                         decoration: InputDecoration.collapsed(
                           hintText: 'Your Email Address',
@@ -176,14 +132,13 @@ class SignUpPage extends StatelessWidget {
           children: [
             Text(
               'Password',
-              style:TextStyle(
+              style: TextStyle(
                 fontSize: 16,
                 fontWeight: medium,
               ),
             ),
-            
             SizedBox(
-              height: 10,
+              height: 8,
             ),
             Container(
               height: 50,
@@ -191,10 +146,11 @@ class SignUpPage extends StatelessWidget {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Color.fromARGB(229, 255, 98, 0),)
-              ),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color:  Color.fromARGB(229, 255, 98, 0),
+                  )),
               child: Center(
                 child: Row(
                   children: [
@@ -203,66 +159,10 @@ class SignUpPage extends StatelessWidget {
                       color: Colors.grey,
                     ),
                     SizedBox(
-                      width: 10,
+                      width: 16,
                     ),
                     Expanded(
                       child: TextFormField(
-                       
-                        obscureText: true,
-                        controller: passwordController,
-                        decoration: InputDecoration.collapsed(
-                          hintText: 'Your Password',
-                          hintStyle: subtitleTextStyle,
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    Widget passwordConfirmInput() {
-      return Container(
-        margin: EdgeInsets.only(top: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Password Confirmation',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: medium,
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              height: 50,
-              padding: EdgeInsets.symmetric(
-                horizontal: 16,
-              ),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Color.fromARGB(229, 255, 98, 0),)
-                
-              ),
-              child: Center(
-                child: Row(
-                  children: [
-                   Icon(Icons.lock, color:Colors.grey),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                        
                         obscureText: true,
                         controller: passwordController,
                         decoration: InputDecoration.collapsed(
@@ -283,21 +183,21 @@ class SignUpPage extends StatelessWidget {
 
     Widget signInButton() {
       return Container(
-        height: 50,
+        height:50,
         width: double.infinity,
         margin: EdgeInsets.only(top: 30),
         child: TextButton(
           onPressed: () {
-            handleSignUp();
+            handleSignIn();
           },
           style: TextButton.styleFrom(
-            backgroundColor: Color.fromARGB(229, 255, 98, 0),
+            backgroundColor:  Color.fromARGB(229, 255, 98, 0),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
           ),
           child: Text(
-            'Sign Up',
+            'Sign In',
             style: primaryTextStyle.copyWith(
               fontSize: 16,
               fontWeight: medium,
@@ -309,24 +209,24 @@ class SignUpPage extends StatelessWidget {
 
     Widget footer() {
       return Container(
-        margin: EdgeInsets.only(bottom: 30),
+        margin: EdgeInsets.only(bottom: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Already have an account? ',
+              'Don\'t have an account? ',
               style: subtitleTextStyle.copyWith(fontSize: 12),
             ),
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/sign-in');
+                Navigator.pushNamed(context, '/sign-up');
               },
               child: Text(
-                'Sign In',
+                'Sign Up',
                 style: purpleTextStyle.copyWith(
                   fontSize: 12,
                   fontWeight: medium,
-                  color: Colors.blue,
+                  color:  Color.fromARGB(229, 255, 98, 0),
                 ),
               ),
             ),
@@ -347,10 +247,8 @@ class SignUpPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               header(),
-              nameInput(),
               emailInput(),
               passwordInput(),
-              passwordConfirmInput(),
               signInButton(),
               Spacer(),
               footer()

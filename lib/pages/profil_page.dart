@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +13,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  int index_color = 0;
   @override
   Widget build(BuildContext context) {
     GetMasukProvider getMasukProvider = Provider.of<GetMasukProvider>(context);
@@ -19,15 +21,77 @@ class _ProfileState extends State<Profile> {
     GetKeluarProvider getKeluarProvider =
         Provider.of<GetKeluarProvider>(context);
     return Scaffold(
-        appBar: AppBar(
-          leading: const BackButton(
-            color: Colors.white,
-          ),
-          title: Text(
-            'Profile',
-            style: GoogleFonts.poppins(color: Colors.white, fontSize: 16),
-          ),
+        floatingActionButton: SpeedDial(
+          icon: Icons.mode_rounded,
           backgroundColor: Color.fromARGB(229, 255, 98, 0),
+          overlayColor: Color.fromARGB(229, 255, 98, 0),
+          overlayOpacity: 0.4,
+          children: [
+            SpeedDialChild(
+              backgroundColor: Color.fromARGB(229, 255, 98, 0),
+              child: Icon(
+                Icons.add_rounded,
+                color: Colors.white,
+              ),
+              label: 'Addmission Fee',
+              onTap: () {
+                Navigator.pushNamed(context, '/Umasuk');
+              },
+            ),
+            SpeedDialChild(
+              backgroundColor: Color.fromARGB(229, 255, 98, 0),
+              child: Icon(
+                Icons.add_card_outlined,
+                color: Colors.white,
+              ),
+              label: 'Expenses Fee',
+              onTap: () => Navigator.pushNamed(context, '/Ukeluar'),
+            ),
+          ],
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: BottomAppBar(
+          color: Colors.white,
+          shape: CircularNotchedRectangle(),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 7.5, bottom: 7.5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/home');
+                    setState(() {
+                      index_color = 0;
+                    });
+                  },
+                  icon: Icon(
+                    Icons.home,
+                    size: 30,
+                    color: index_color == 0
+                        ? Color.fromARGB(229, 255, 98, 0)
+                        : Color.fromARGB(229, 255, 98, 0),
+                  ),
+                ),
+                SizedBox(width: 20),
+                IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/profile');
+                    setState(() {
+                      index_color = 0;
+                    });
+                  },
+                  icon: Icon(
+                    Icons.person,
+                    size: 30,
+                    color: index_color == 0
+                        ? Color.fromARGB(229, 255, 98, 0)
+                        : Color.fromARGB(229, 255, 98, 0),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
         body: Column(
           children: [
@@ -52,7 +116,8 @@ class _ProfileState extends State<Profile> {
                           padding: EdgeInsets.only(left: 10),
                           child: Text(
                             'Hi, ' + authProvider.user.name,
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14),
                           ),
                         ),
                       ],
@@ -70,7 +135,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               shape: RoundedRectangleBorder(
                                   side: BorderSide(
-                                    color: Colors.orange,
+                                    color: Color.fromARGB(229, 255, 98, 0),
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(10)),
@@ -98,7 +163,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               shape: RoundedRectangleBorder(
                                   side: BorderSide(
-                                    color: Colors.orange,
+                                    color: Color.fromARGB(229, 255, 98, 0),
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(10)),
@@ -126,7 +191,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               shape: RoundedRectangleBorder(
                                   side: BorderSide(
-                                    color: Colors.orange,
+                                    color: Color.fromARGB(229, 255, 98, 0),
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(10)),
@@ -145,7 +210,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               shape: RoundedRectangleBorder(
                                   side: BorderSide(
-                                    color: Colors.orange,
+                                    color: Color.fromARGB(229, 255, 98, 0),
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(10)),
@@ -173,7 +238,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               shape: RoundedRectangleBorder(
                                   side: BorderSide(
-                                    color: Colors.orange,
+                                    color: Color.fromARGB(229, 255, 98, 0),
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(10)),
@@ -201,7 +266,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               shape: RoundedRectangleBorder(
                                   side: BorderSide(
-                                    color: Colors.orange,
+                                    color: Color.fromARGB(229, 255, 98, 0),
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(10)),
@@ -212,7 +277,7 @@ class _ProfileState extends State<Profile> {
                                     icon: Icon(
                                       Icons.star,
                                       size: 20,
-                                      color: Colors.yellow,
+                                      color: Colors.grey.shade800,
                                     ),
                                   ),
                                 ],

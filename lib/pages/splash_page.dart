@@ -29,28 +29,24 @@ class _SplashPageState extends State<SplashPage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [        
-          Image.asset(
-            'assets/logo.png',
-            width: 250,
-            height: 250,
-          ) ,
-          SizedBox(
-            height: 5,            
-          ),
-          loading()
+          children: [
+            Image.asset(
+              'assets/logo.png',
+              width: 250,
+              height: 150,
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            loading()
           ],
-          
         ),
       ),
-    
     );
-    
   }
-     Widget loading() {
-        return LoadingAnimationWidget.stretchedDots(
-        color: Color.fromARGB(229, 255, 98, 0),
-         size: 50);
-       }
-     
+
+  Widget loading() {
+    return LoadingAnimationWidget.stretchedDots(
+        color: Color.fromARGB(229, 255, 98, 0), size: 50);
+  }
 }

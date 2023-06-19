@@ -1,32 +1,103 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/models/get_masuk_model.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/auth_provider.dart';
 import '../providers/get_masuk_providers.dart';
 import 'home/main_page.dart';
 
-class DetailUangMasukPage extends StatelessWidget {
+class DetailUangMasukPage extends StatefulWidget {
   final uangMasuk;
 
   DetailUangMasukPage({@required this.uangMasuk});
 
   @override
+  State<DetailUangMasukPage> createState() => _DetailUangMasukPageState();
+}
+
+class _DetailUangMasukPageState extends State<DetailUangMasukPage> {
+   //final money = NumberFormat("###,###,###","en_us");
+  int index_color = 0;
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: const BackButton(
-          color: Colors.white,
-        ),
-        title: Text(
-          'Detail Pemasukan',
-          style: GoogleFonts.poppins(color: Colors.white, fontSize: 16),
-        ),
+      floatingActionButton: SpeedDial(
+        icon: Icons.mode_rounded,
         backgroundColor: Color.fromARGB(229, 255, 98, 0),
+        overlayColor: Color.fromARGB(229, 255, 98, 0),
+        overlayOpacity: 0.4,
+        children: [
+          SpeedDialChild(
+            backgroundColor: Color.fromARGB(229, 255, 98, 0),
+            child: Icon(
+              Icons.add_rounded,
+              color: Colors.white,
+            ),
+            label: 'Addmission Fee',
+            onTap: () {
+              Navigator.pushNamed(context, '/Umasuk');
+            },
+          ),
+          SpeedDialChild(
+            backgroundColor: Color.fromARGB(229, 255, 98, 0),
+            child: Icon(
+              Icons.add_card_outlined,
+              color: Colors.white,
+            ),
+            label: 'Expenses Fee',
+            onTap: () => Navigator.pushNamed(context, '/Ukeluar'),
+          ),
+        ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.white,
+        shape: CircularNotchedRectangle(),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 7.5, bottom: 7.5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/home');
+                  setState(() {
+                    index_color = 0;
+                  });
+                },
+                icon: Icon(
+                  Icons.home,
+                  size: 30,
+                  color: index_color == 0
+                      ? Color.fromARGB(229, 255, 98, 0)
+                      : Color.fromARGB(229, 255, 98, 0),
+                ),
+              ),
+              SizedBox(width: 20),
+              IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/profile');
+                  setState(() {
+                    index_color = 0;
+                  });
+                },
+                icon: Icon(
+                  Icons.person,
+                  size: 30,
+                  color: index_color == 0
+                      ? Color.fromARGB(229, 255, 98, 0)
+                      : Color.fromARGB(229, 255, 98, 0),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -65,14 +136,14 @@ class DetailUangMasukPage extends StatelessWidget {
                     padding: EdgeInsets.only(right: 10, left: 10),
                     child: ListTile(
                       title: Text(
-                        uangMasuk.name,
+                        widget.uangMasuk.name,
                         style: GoogleFonts.poppins(
                             textStyle: TextStyle(fontWeight: FontWeight.bold)),
                       ),
-                      subtitle: Text("Rp." + uangMasuk.price),
+                     /// subtitle: Text("Rp." +money.format(int.parse(widget.uangMasuk.price))),
                       trailing: Column(
                         children: [
-                          Text(uangMasuk.date),
+                          Text(widget.uangMasuk.date),
                         ],
                       ),
                     ),
@@ -80,7 +151,7 @@ class DetailUangMasukPage extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 40.0),
                     child: Text(
-                      uangMasuk.description,
+                      widget.uangMasuk.description,
                       style: GoogleFonts.poppins(),
                     ),
                   ),

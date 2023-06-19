@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_application/pages/Ukeluar/main_page.dart';
 import 'package:flutter_application/pages/Umasuk/main_page.dart';
+
 import 'package:flutter_application/pages/detail_keluar_page.dart';
 import 'package:flutter_application/pages/detail_masuk_page.dart';
 import 'package:flutter_application/pages/home/main_page.dart';
 import 'package:flutter_application/pages/profil_page.dart';
-import 'package:flutter_application/pages/sign_in_page.dart';
-import 'package:flutter_application/pages/sign_up_page.dart';
+import 'package:flutter_application/pages/auth/sign_in_page.dart';
+import 'package:flutter_application/pages/auth/sign_up_page.dart';
 import 'package:flutter_application/pages/splash_page.dart';
 import 'package:flutter_application/pages/success_page.dart';
 import 'package:flutter_application/providers/auth_provider.dart';
@@ -53,6 +55,9 @@ class MyApp extends StatelessWidget {
           '/detailmasukpage': (context) => DetailUangMasukPage(),
           '/detailkeluarpage': (context) => DetailUangKeluarPage(),
           '/profile':(context) => Profile(),
+          //  '/coba':(context) => Login(),
+          
+        
         },
       ),
     );

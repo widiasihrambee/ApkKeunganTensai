@@ -4,27 +4,27 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_application/providers/auth_provider.dart';
 import 'package:flutter_application/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/user_model.dart';
-
-class SignInPage extends StatelessWidget {
+class SignUpPage extends StatelessWidget {
+  TextEditingController nameController = TextEditingController(text: '');
   TextEditingController emailController = TextEditingController(text: '');
   TextEditingController passwordController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
-    handleSignIn() async {
-      if (await authProvider.login(
+    handleSignUp() async {
+      if (await authProvider.register(
+        name: nameController.text,
         email: emailController.text,
         password: passwordController.text,
+        confirmPassword: passwordController.text,
       )) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.green,
             content: Text(
-              'Login Successfully!',
+              'Register Successfully!',
               textAlign: TextAlign.center,
             ),
           ),
@@ -35,31 +35,75 @@ class SignInPage extends StatelessWidget {
 
     Widget header() {
       return SingleChildScrollView(
+        padding: EdgeInsets.only(
+          top: 20,
+        ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 200,
-              height: 200,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/ilustrasi.png'))),
-            ),
-            Center(
-              child: Text(
-                'Welcome To ',
+             Center(
+               child: Text(
+                'Registrasi',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 25,
                   fontWeight: FontWeight.bold,
                 ),
+                         ),
+             ), 
+           
+          ],
+        ),
+      );
+    }
+
+    Widget nameInput() {
+      return Container(
+        margin: EdgeInsets.only(top: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Full Name',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: medium,
               ),
             ),
-            Center(
-              child: Text(
-                'Finance Tensai',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              height: 50,
+              padding: EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color:  Color.fromARGB(229, 255, 98, 0),)
+              ),
+              child: Center(
+                child: Row(
+                  children: [
+                   Icon(
+                    Icons.person,
+                    color: Colors.grey,
+                   ),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        
+                        controller: nameController,
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'Your Full Name',
+                          hintStyle: subtitleTextStyle,
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
@@ -82,7 +126,7 @@ class SignInPage extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 8,
+              height: 10,
             ),
             Container(
               height: 50,
@@ -90,11 +134,10 @@ class SignInPage extends StatelessWidget {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: Color.fromARGB(229, 255, 98, 0),
-                  )),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Color.fromARGB(229, 255, 98, 0),),
+              ),
               child: Center(
                 child: Row(
                   children: [
@@ -103,10 +146,11 @@ class SignInPage extends StatelessWidget {
                       color: Colors.grey,
                     ),
                     SizedBox(
-                      width: 16,
+                      width: 10,
                     ),
                     Expanded(
                       child: TextFormField(
+                        
                         controller: emailController,
                         decoration: InputDecoration.collapsed(
                           hintText: 'Your Email Address',
@@ -132,13 +176,14 @@ class SignInPage extends StatelessWidget {
           children: [
             Text(
               'Password',
-              style: TextStyle(
+              style:TextStyle(
                 fontSize: 16,
                 fontWeight: medium,
               ),
             ),
+            
             SizedBox(
-              height: 8,
+              height: 10,
             ),
             Container(
               height: 50,
@@ -146,11 +191,10 @@ class SignInPage extends StatelessWidget {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: Color.fromARGB(229, 255, 98, 0),
-                  )),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Color.fromARGB(229, 255, 98, 0),)
+              ),
               child: Center(
                 child: Row(
                   children: [
@@ -159,10 +203,66 @@ class SignInPage extends StatelessWidget {
                       color: Colors.grey,
                     ),
                     SizedBox(
-                      width: 16,
+                      width: 10,
                     ),
                     Expanded(
                       child: TextFormField(
+                       
+                        obscureText: true,
+                        controller: passwordController,
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'Your Password',
+                          hintStyle: subtitleTextStyle,
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget passwordConfirmInput() {
+      return Container(
+        margin: EdgeInsets.only(top: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Password Confirmation',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: medium,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              height: 50,
+              padding: EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color:  Color.fromARGB(229, 255, 98, 0),)
+                
+              ),
+              child: Center(
+                child: Row(
+                  children: [
+                   Icon(Icons.lock, color:Colors.grey),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        
                         obscureText: true,
                         controller: passwordController,
                         decoration: InputDecoration.collapsed(
@@ -183,12 +283,12 @@ class SignInPage extends StatelessWidget {
 
     Widget signInButton() {
       return Container(
-        height: 45,
+        height: 50,
         width: double.infinity,
-        margin: EdgeInsets.only(top: 25),
+        margin: EdgeInsets.only(top: 30),
         child: TextButton(
           onPressed: () {
-            handleSignIn();
+            handleSignUp();
           },
           style: TextButton.styleFrom(
             backgroundColor: Color.fromARGB(229, 255, 98, 0),
@@ -197,7 +297,7 @@ class SignInPage extends StatelessWidget {
             ),
           ),
           child: Text(
-            'Sign In',
+            'Sign Up',
             style: primaryTextStyle.copyWith(
               fontSize: 16,
               fontWeight: medium,
@@ -214,19 +314,19 @@ class SignInPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Don\'t have an account? ',
+              'Already have an account? ',
               style: subtitleTextStyle.copyWith(fontSize: 12),
             ),
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/sign-up');
+                Navigator.pushNamed(context, '/sign-in');
               },
               child: Text(
-                'Sign Up',
+                'Sign In',
                 style: purpleTextStyle.copyWith(
                   fontSize: 12,
                   fontWeight: medium,
-                  color: Colors.blue,
+                  color: Color.fromARGB(229, 255, 98, 0),
                 ),
               ),
             ),
@@ -247,8 +347,10 @@ class SignInPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               header(),
+              nameInput(),
               emailInput(),
               passwordInput(),
+              passwordConfirmInput(),
               signInButton(),
               Spacer(),
               footer()

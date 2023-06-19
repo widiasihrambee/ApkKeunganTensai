@@ -1,14 +1,20 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_application/providers/auth_provider.dart';
+import 'package:flutter_application/providers/get_keluar_providers.dart';
 import 'package:flutter_application/providers/uang_keluar_providers.dart';
 import 'package:flutter_application/theme.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_application/pages/success_page.dart';
+import 'package:flutter/services.dart';
+import '../currency.dart';
 
 import '../home/main_page.dart';
+import 'package:intl/intl.dart';
 
 class MainKeluarPage extends StatefulWidget {
   @override
@@ -16,12 +22,21 @@ class MainKeluarPage extends StatefulWidget {
 }
 
 class _MainKeluarPageState extends State<MainKeluarPage> {
+  final List<String> items = [
+    'Belanja Umum',
+  ];
+  String kategoriBarangController;
+ 
+   
+
+ 
+
   TextEditingController namaBarangController = TextEditingController(text: '');
 
-  TextEditingController kategoriBarangController =
-      TextEditingController(text: '');
+  // TextEditingController kategoriBarangController =
+  //     TextEditingController(text: '');
 
-  TextEditingController hargaBarangController = TextEditingController(text: '');
+ TextEditingController hargaBarangController = TextEditingController(text: '');
 
   TextEditingController metodePembayaranController =
       TextEditingController(text: '');
@@ -32,14 +47,13 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
-
     UangKeluarProvider uangKeluarProvider =
         Provider.of<UangKeluarProvider>(context);
 
     Widget header() {
       return Container(
         margin: EdgeInsets.only(
-          top: 20,
+          top: 30,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -77,10 +91,10 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
               ),
             ),
             SizedBox(
-              height: 8,
+              height: 10,
             ),
             Container(
-              height: 40,
+              height: 45,
               padding: EdgeInsets.symmetric(
                 horizontal: 16,
               ),
@@ -121,7 +135,6 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
     }
 
     Widget kategoriBarangInput() {
-      //List listName;["Belanja Umum"];
       return Container(
         margin: EdgeInsets.only(top: 10),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -133,14 +146,13 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
             ),
           ),
           SizedBox(
-            height: 8,
+            height: 10,
           ),
           Container(
-            height: 40,
+            height: 45,
             padding: EdgeInsets.symmetric(
               horizontal: 16,
             ),
-
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
@@ -148,64 +160,44 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
                 color: Color.fromARGB(229, 255, 98, 0),
               ),
             ),
-
-            // child: DropdownButtonFormField<String>(
-            //     decoration: InputDecoration(
-
-            //       hintText: 'Enter Category Id',
-            //       border: UnderlineInputBorder(
-            //         borderRadius: BorderRadius.circular(10),
-
-            //       ),
-
-            //     ),
-            //     items: [
-            //       DropdownMenuItem(
-            //         child: Text('BelanjaUmum'),
-            //         value: 'one',
-            //       ),
-            //     ],
-
-            //     isExpanded: true,
-            //     iconSize: 15,
-            //     onChanged: (String value) {
-            //       value = 'one';
-            //       setState(() {
-
-            //         // Navigator.push(context,MaterialPageRoute(builder: (context)=>HomePage()));
-            //       });
-
-            child: Row(
-              children: [
-                Icon(
-                  Icons.assignment_outlined,
-                  color: Colors.grey,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: TextFormField(
-                    controller: kategoriBarangController,
-                    decoration: InputDecoration.collapsed(
-                      hintText: 'Enter Category Id',
-                      hintStyle: subtitleTextStyle,
-                      border: InputBorder.none,
-                    ),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton2<String>(
+                underline: SizedBox(),
+                isExpanded: true,
+                hint: Center(
+                  child: Row(
+                    children: [
+                      // Icon(Icons.list, color: Colors.grey),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          "Select Category",
+                          style: TextStyle(fontSize: 16, fontWeight: medium),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
+                items: items
+                    .map((kategoriBarangController) => DropdownMenuItem<String>(
+                          value: kategoriBarangController,
+                          child: Text(
+                            kategoriBarangController,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ))
+                    .toList(),
+                value: kategoriBarangController,
+                onChanged: (value) {
+                  setState(() {
+                    kategoriBarangController = value as String;
+                  });
+                },
+              ),
             ),
           ),
         ]),
       );
-
-      //             )
-
-      //       ],
-      //     ],
-      //   ),
-      // );
     }
 
     Widget hargaBarangInput() {
@@ -222,19 +214,17 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
               ),
             ),
             SizedBox(
-              height: 8,
+              height: 10,
             ),
             Container(
-              height: 40,
+              height: 45,
               padding: EdgeInsets.symmetric(
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: Color.fromARGB(229, 255, 98, 0),
-                ),
+                border: Border.all(color: Color.fromARGB(229, 255, 98, 0)),
               ),
               child: Center(
                 child: Row(
@@ -247,7 +237,7 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
                       width: 8,
                     ),
                     Expanded(
-                      child: TextFormField(
+                      child: TextFormField(    
                         controller: hargaBarangController,
                         decoration: InputDecoration.collapsed(
                           hintText: 'Enter Expenses Fee',
@@ -279,19 +269,17 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
               ),
             ),
             SizedBox(
-              height: 8,
+              height: 10,
             ),
             Container(
-              height: 40,
+              height: 45,
               padding: EdgeInsets.symmetric(
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: Color.fromARGB(229, 255, 98, 0),
-                ),
+                border: Border.all(color: Color.fromARGB(229, 255, 98, 0)),
               ),
               child: Center(
                 child: Row(
@@ -336,10 +324,10 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
               ),
             ),
             SizedBox(
-              height: 8,
+              height: 10,
             ),
             Container(
-              height: 40,
+              height: 45,
               padding: EdgeInsets.symmetric(
                 horizontal: 16,
               ),
@@ -395,7 +383,7 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
     handleSubmit() async {
       if (await uangKeluarProvider.uangKeluar(
         authProvider.user.token,
-        kategoriBarangController.text,
+        kategoriBarangController,
         namaBarangController.text,
         hargaBarangController.text,
         metodePembayaranController.text,
@@ -406,6 +394,7 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
             backgroundColor: Colors.green,
             content: Text(
               'Expenses Fee Created',
+              style: TextStyle(fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -416,10 +405,11 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
     }
 
     Widget saveButton() {
+      bool isLoading = true;
       return Container(
-        height: 40,
+        height: 45,
         width: double.infinity,
-        margin: EdgeInsets.only(top: 20),
+        margin: EdgeInsets.only(top: 40),
         child: TextButton(
           onPressed: () {
             handleSubmit();
@@ -437,41 +427,43 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
               fontWeight: medium,
             ),
           ),
+          
         ),
+        
       );
     }
-
-    Widget batalButton() {
-      return Container(
-        height: 40,
-        width: double.infinity,
-        margin: EdgeInsets.only(
-          top: 20,
-        ),
-        child: TextButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/home');
-          },
-          style: TextButton.styleFrom(
-            backgroundColor: Colors.grey,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-          child: Text(
-            'Back',
-            style: primaryTextStyle.copyWith(
-              color: Color.fromARGB(229, 255, 98, 0),
-              fontSize: 16,
-              fontWeight: medium,
-            ),
-          ),
-        ),
-      );
-    }
+    
 
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: SpeedDial(
+          icon: Icons.mode_rounded,
+          backgroundColor: Color.fromARGB(229, 255, 98, 0),
+          overlayColor: Color.fromARGB(229, 255, 98, 0),
+          overlayOpacity: 0.4,
+          children: [
+            SpeedDialChild(
+              backgroundColor: Color.fromARGB(229, 255, 98, 0),
+              child: Icon(
+                Icons.home,
+                color: Colors.white,
+              ),
+              label: 'Home',
+              onTap: () {
+                Navigator.pushNamed(context, '/home');
+              },
+            ),
+            SpeedDialChild(
+              backgroundColor: Color.fromARGB(229, 255, 98, 0),
+              child: Icon(
+                Icons.add_rounded,
+                color: Colors.white,
+              ),
+              label: 'Addmission Fee',
+              onTap: () => Navigator.pushNamed(context, '/Umasuk'),
+            ),
+          ],
+        ),
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: Container(
@@ -487,7 +479,7 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
               metodePembayaranInput(),
               tanggalPembelianInput(),
               saveButton(),
-              batalButton(),
+              //batalButton(),
             ],
           ),
         ),
@@ -495,3 +487,57 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
     );
   }
 }
+
+//child: TextButton(onPressed: () {
+        //   setState(() {
+        //     isLoading = true;
+        //   });
+        //   Future.delayed(Duration(seconds: 3),(){
+        //     setState(() {
+        //       isLoading = false;
+
+        //     });
+
+        //   });
+
+        // },
+        // child: isLoading? Row(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     Text('loading...', style: TextStyle(fontSize: 20),),
+        //     SizedBox(width: 10,),
+        //     CircularProgressIndicator(color: Colors.orange,),
+
+        // ],
+        // ):Text('Save',style: primaryTextStyle.copyWith(
+        //       fontSize: 16,
+        //       color: Colors.orange,
+        //       fontWeight: medium,
+        //     ),)
+        
+        // ),
+      ////  import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
+// import 'package:matcher/matcher.dart';
+// import 'package:intl/intl.dart';
+
+// class CurrencyFormat extends TextInputFormatter {
+//   @override
+//   TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+//     // TODO: implement formatEditUpdate
+//    if (newValue.selection.baseOffset == 0) {
+//     return newValue;
+//    }
+//    double d = 100286020524.17;
+//    final hargaBarangController = NumberFormat.currency(locale:'ID', decimalDigits: 0, symbol: 'Rp');
+//    print(hargaBarangController.format(d)); // IDR100.286.020.524,17
+
+//    String newText = hargaBarangController.format(d);
+
+//    return newValue.copyWith(
+//     text: newText,
+//     selection: TextSelection.collapsed(offset: newText.length)
+//    );
+//   }
+  
+// }

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_application/providers/auth_provider.dart';
 import 'package:flutter_application/providers/uang_masuk_provider.dart';
 import 'package:flutter_application/theme.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+
 
 class MainMasukPage extends StatefulWidget {
   @override
@@ -40,6 +43,7 @@ class _MainMasukPageState extends State<MainMasukPage> {
             backgroundColor: Colors.green,
             content: Text(
               'Admission Fee Created',
+              style: TextStyle(fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -173,9 +177,12 @@ class _MainMasukPageState extends State<MainMasukPage> {
                     ),
                     Expanded(
                       child: TextFormField(
+                        // inputFormatters: [
+                        //   FilteringTextInputFormatter.digitsOnly, CurrencyFormat()
+                        // ],
                         controller: priceController,
                         decoration: InputDecoration.collapsed(
-                          hintText: 'Enter Admission Fee',
+                          hintText: 'Enter Price',
                           hintStyle: subtitleTextStyle,
                           border: InputBorder.none,
                         ),
@@ -323,7 +330,7 @@ class _MainMasukPageState extends State<MainMasukPage> {
         height: 45,
         width: double.infinity,
         margin: EdgeInsets.only(
-          top: 20,
+          top: 50,
         ),
         child: TextButton(
           onPressed: () {
@@ -346,37 +353,36 @@ class _MainMasukPageState extends State<MainMasukPage> {
       );
     }
 
-    Widget batalButton() {
-      return Container(
-        height: 45,
-        width: double.infinity,
-        margin: EdgeInsets.only(
-          top: 20,
-        ),
-        child: TextButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/home');
-          },
-          style: TextButton.styleFrom(
-            backgroundColor: Colors.grey,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-          child: Text(
-            'Back',
-            style: primaryTextStyle.copyWith(
-              color: Color.fromARGB(229, 255, 98, 0),
-              fontSize: 16,
-              fontWeight: medium,
-            ),
-          ),
-        ),
-      );
-    }
-
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: SpeedDial(
+          icon: Icons.mode_rounded,
+          backgroundColor: Color.fromARGB(229, 255, 98, 0),
+          overlayColor: Color.fromARGB(229, 255, 98, 0),
+          overlayOpacity: 0.4,
+          children: [
+            SpeedDialChild(
+              backgroundColor: Color.fromARGB(229, 255, 98, 0),
+              child: Icon(
+                Icons.home,
+                color: Colors.white,
+              ),
+              label: 'Home',
+              onTap: () {
+                Navigator.pushNamed(context, '/home');
+              },
+            ),
+            SpeedDialChild(
+              backgroundColor: Color.fromARGB(229, 255, 98, 0),
+              child: Icon(
+                Icons.add_card_outlined,
+                color: Colors.white,
+              ),
+              label: 'Expenses Fee',
+              onTap: () => Navigator.pushNamed(context, '/Ukeluar'),
+            ),
+          ],
+        ),
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: Container(
@@ -391,7 +397,7 @@ class _MainMasukPageState extends State<MainMasukPage> {
               descriptionInput(),
               dateInput(),
               saveButton(),
-              batalButton(),
+              // batalButton(),
             ],
           ),
         ),

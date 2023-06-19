@@ -29,7 +29,7 @@ class SuccessOutPage extends StatelessWidget {
               width: 200,
               height: 200,
               child: LottieBuilder.asset('assets/ceklis.json'),
-            ),            
+            ),
             Text(
               'Expenses Fee Created',
               style: TextStyle(
