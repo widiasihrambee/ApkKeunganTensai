@@ -22,19 +22,20 @@ class DetailUangMasukPage extends StatefulWidget {
 }
 
 class _DetailUangMasukPageState extends State<DetailUangMasukPage> {
-   //final money = NumberFormat("###,###,###","en_us");
+final money = NumberFormat.currency(locale:'ID', decimalDigits: 0, symbol: 'Rp.');
   int index_color = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade300,
       floatingActionButton: SpeedDial(
         icon: Icons.mode_rounded,
-        backgroundColor: Color.fromARGB(229, 255, 98, 0),
-        overlayColor: Color.fromARGB(229, 255, 98, 0),
+        backgroundColor:  Colors.orange.shade900,
+        overlayColor:  Colors.orange.shade900,
         overlayOpacity: 0.4,
         children: [
           SpeedDialChild(
-            backgroundColor: Color.fromARGB(229, 255, 98, 0),
+            backgroundColor:  Colors.orange.shade900,
             child: Icon(
               Icons.add_rounded,
               color: Colors.white,
@@ -45,7 +46,7 @@ class _DetailUangMasukPageState extends State<DetailUangMasukPage> {
             },
           ),
           SpeedDialChild(
-            backgroundColor: Color.fromARGB(229, 255, 98, 0),
+            backgroundColor:  Colors.orange.shade900,
             child: Icon(
               Icons.add_card_outlined,
               color: Colors.white,
@@ -57,7 +58,7 @@ class _DetailUangMasukPageState extends State<DetailUangMasukPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
+        color: Colors.grey.shade300,
         shape: CircularNotchedRectangle(),
         child: Padding(
           padding: const EdgeInsets.only(top: 7.5, bottom: 7.5),
@@ -75,8 +76,8 @@ class _DetailUangMasukPageState extends State<DetailUangMasukPage> {
                   Icons.home,
                   size: 30,
                   color: index_color == 0
-                      ? Color.fromARGB(229, 255, 98, 0)
-                      : Color.fromARGB(229, 255, 98, 0),
+                      ?  Colors.orange.shade900
+                      :  Colors.orange.shade900,
                 ),
               ),
               SizedBox(width: 20),
@@ -91,8 +92,8 @@ class _DetailUangMasukPageState extends State<DetailUangMasukPage> {
                   Icons.person,
                   size: 30,
                   color: index_color == 0
-                      ? Color.fromARGB(229, 255, 98, 0)
-                      : Color.fromARGB(229, 255, 98, 0),
+                      ?  Colors.orange.shade900
+                      :  Colors.orange.shade900,
                 ),
               ),
             ],
@@ -122,7 +123,8 @@ class _DetailUangMasukPageState extends State<DetailUangMasukPage> {
               width: double.infinity,
               height: 500,
               decoration: BoxDecoration(
-                color: Color.fromARGB(235, 235, 230, 230),
+                color: Colors.grey.shade200,
+                border:Border.all(color: Colors.white),
                 borderRadius: BorderRadius.vertical(
                   top: Radius.circular(50),
                 ),
@@ -140,7 +142,7 @@ class _DetailUangMasukPageState extends State<DetailUangMasukPage> {
                         style: GoogleFonts.poppins(
                             textStyle: TextStyle(fontWeight: FontWeight.bold)),
                       ),
-                     /// subtitle: Text("Rp." +money.format(int.parse(widget.uangMasuk.price))),
+                     subtitle: Text(money.format(int.parse(widget.uangMasuk.price))),
                       trailing: Column(
                         children: [
                           Text(widget.uangMasuk.date),

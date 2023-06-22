@@ -7,11 +7,11 @@ import 'package:flutter_application/providers/get_keluar_providers.dart';
 import 'package:flutter_application/providers/uang_keluar_providers.dart';
 import 'package:flutter_application/theme.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_application/pages/success_page.dart';
 import 'package:flutter/services.dart';
-import '../currency.dart';
 
 import '../home/main_page.dart';
 import 'package:intl/intl.dart';
@@ -26,17 +26,13 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
     'Belanja Umum',
   ];
   String kategoriBarangController;
- 
-   
-
- 
 
   TextEditingController namaBarangController = TextEditingController(text: '');
 
   // TextEditingController kategoriBarangController =
   //     TextEditingController(text: '');
 
- TextEditingController hargaBarangController = TextEditingController(text: '');
+  TextEditingController hargaBarangController = TextEditingController(text: '');
 
   TextEditingController metodePembayaranController =
       TextEditingController(text: '');
@@ -50,6 +46,7 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
     UangKeluarProvider uangKeluarProvider =
         Provider.of<UangKeluarProvider>(context);
 
+
     Widget header() {
       return Container(
         margin: EdgeInsets.only(
@@ -60,9 +57,8 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
           children: [
             Text(
               'Add New Expenses Fee',
-              style: TextStyle(
+              style: GoogleFonts.bebasNeue(
                 fontSize: 20,
-                fontWeight: semiBold,
               ),
             ),
             SizedBox(
@@ -99,10 +95,10 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: Color.fromARGB(229, 255, 98, 0),
+                  color: Colors.white,
                 ),
               ),
               child: Center(
@@ -110,7 +106,7 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
                   children: [
                     Icon(
                       Icons.assignment_outlined,
-                      color: Colors.grey,
+                      color: Colors.orange.shade900,
                     ),
                     SizedBox(
                       width: 8,
@@ -154,10 +150,10 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
               horizontal: 16,
             ),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.grey.shade200,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: Color.fromARGB(229, 255, 98, 0),
+                color: Colors.white,
               ),
             ),
             child: DropdownButtonHideUnderline(
@@ -222,22 +218,22 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Color.fromARGB(229, 255, 98, 0)),
+                border: Border.all(color: Colors.white),
               ),
               child: Center(
                 child: Row(
                   children: [
                     Icon(
                       Icons.attach_money,
-                      color: Colors.grey,
+                      color: Colors.orange.shade900,
                     ),
                     SizedBox(
                       width: 8,
                     ),
                     Expanded(
-                      child: TextFormField(    
+                      child: TextFormField(
                         controller: hargaBarangController,
                         decoration: InputDecoration.collapsed(
                           hintText: 'Enter Expenses Fee',
@@ -277,16 +273,18 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Color.fromARGB(229, 255, 98, 0)),
+                border: Border.all(
+                  color: Colors.white,
+                ),
               ),
               child: Center(
                 child: Row(
                   children: [
                     Icon(
                       Icons.description,
-                      color: Colors.grey,
+                      color: Colors.orange.shade900,
                     ),
                     SizedBox(
                       width: 8,
@@ -332,10 +330,10 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: Color.fromARGB(229, 255, 98, 0),
+                  color: Colors.white,
                 ),
               ),
               child: Center(
@@ -343,7 +341,7 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
                   children: [
                     Icon(
                       Icons.date_range,
-                      color: Colors.grey,
+                      color: Colors.orange.shade900,
                     ),
                     SizedBox(
                       width: 10,
@@ -356,12 +354,14 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
                           hintStyle: subtitleTextStyle,
                           border: InputBorder.none,
                         ),
-                        onTap: () async {
+                        onTap: () async {                          
                           DateTime pickdate = await showDatePicker(
                               context: context,
                               initialDate: DateTime.now(),
                               firstDate: DateTime(2000),
-                              lastDate: DateTime(2025));
+                              lastDate: DateTime(2025)
+                              );
+                              
                           if (pickdate != null) {
                             setState(() {
                               tanggalPembelianController.text =
@@ -381,6 +381,11 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
     }
 
     handleSubmit() async {
+      showDialog(
+    context: context, 
+    builder: (context){
+      return Center(child: CircularProgressIndicator(color: Color.fromARGB(229, 255, 98, 0),));},
+    );
       if (await uangKeluarProvider.uangKeluar(
         authProvider.user.token,
         kategoriBarangController,
@@ -388,7 +393,9 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
         hargaBarangController.text,
         metodePembayaranController.text,
         tanggalPembelianController.text,
-      )) {
+      )) 
+       Navigator.of(context).pop();
+      {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.green,
@@ -415,7 +422,7 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
             handleSubmit();
           },
           style: TextButton.styleFrom(
-            backgroundColor: Color.fromARGB(229, 255, 98, 0),
+            backgroundColor: Colors.orange.shade900,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
@@ -427,23 +434,20 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
               fontWeight: medium,
             ),
           ),
-          
         ),
-        
       );
     }
-    
 
     return SafeArea(
       child: Scaffold(
         floatingActionButton: SpeedDial(
           icon: Icons.mode_rounded,
-          backgroundColor: Color.fromARGB(229, 255, 98, 0),
-          overlayColor: Color.fromARGB(229, 255, 98, 0),
+          backgroundColor: Colors.orange.shade900,
+          overlayColor: Colors.orange.shade900,
           overlayOpacity: 0.4,
           children: [
             SpeedDialChild(
-              backgroundColor: Color.fromARGB(229, 255, 98, 0),
+              backgroundColor: Colors.orange.shade900,
               child: Icon(
                 Icons.home,
                 color: Colors.white,
@@ -454,7 +458,7 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
               },
             ),
             SpeedDialChild(
-              backgroundColor: Color.fromARGB(229, 255, 98, 0),
+              backgroundColor: Colors.orange.shade900,
               child: Icon(
                 Icons.add_rounded,
                 color: Colors.white,
@@ -465,7 +469,7 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
           ],
         ),
         resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey.shade300,
         body: Container(
           margin: EdgeInsets.symmetric(
             horizontal: defaultMargin,

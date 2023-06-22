@@ -67,7 +67,7 @@ class AuthService {
       UserModel user = UserModel.fromJson(data['user']);
       user.token = 'Bearer ' + data['access_token'];
       return user;
-    } else {
+    } else {      
       throw Exception('Gagal Login');
     }
   }

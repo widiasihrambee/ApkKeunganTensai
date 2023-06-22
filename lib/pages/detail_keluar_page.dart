@@ -22,19 +22,20 @@ class DetailUangKeluarPage extends StatefulWidget {
 }
 
 class _DetailUangKeluarPageState extends State<DetailUangKeluarPage> {
- //final money = NumberFormat("###,###,###","en_us");
+final money = NumberFormat.currency(locale:'ID', decimalDigits: 0, symbol: 'Rp.');
   int index_color = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade300,
       floatingActionButton: SpeedDial(
         icon: Icons.mode_rounded,
-        backgroundColor: Color.fromARGB(229, 255, 98, 0),
-        overlayColor: Color.fromARGB(229, 255, 98, 0),
+        backgroundColor:  Colors.orange.shade900,
+        overlayColor:  Colors.orange.shade900,
         overlayOpacity: 0.4,
         children: [
           SpeedDialChild(
-            backgroundColor: Color.fromARGB(229, 255, 98, 0),
+            backgroundColor:  Colors.orange.shade900,
             child: Icon(
               Icons.add_rounded,
               color: Colors.white,
@@ -45,7 +46,7 @@ class _DetailUangKeluarPageState extends State<DetailUangKeluarPage> {
             },
           ),
           SpeedDialChild(
-            backgroundColor: Color.fromARGB(229, 255, 98, 0),
+            backgroundColor:  Colors.orange.shade900,
             child: Icon(
               Icons.add_card_outlined,
               color: Colors.white,
@@ -57,7 +58,7 @@ class _DetailUangKeluarPageState extends State<DetailUangKeluarPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
+        color: Colors.grey.shade300,
         shape: CircularNotchedRectangle(),
         child: Padding(
           padding: const EdgeInsets.only(top: 7.5, bottom: 7.5),
@@ -122,7 +123,8 @@ class _DetailUangKeluarPageState extends State<DetailUangKeluarPage> {
               width: double.infinity,
               height: 500,
               decoration: BoxDecoration(
-                color: Color.fromARGB(235, 235, 230, 230),
+                color: Colors.grey.shade200,
+                border: Border.all(color: Colors.white),
                 borderRadius: BorderRadius.vertical(
                   top: Radius.circular(50),
                 ),
@@ -140,7 +142,7 @@ class _DetailUangKeluarPageState extends State<DetailUangKeluarPage> {
                         style: GoogleFonts.poppins(
                             textStyle: TextStyle(fontWeight: FontWeight.bold)),
                       ),
-                      // subtitle: Text("Rp." + money.format(int.parse(widget.uangKeluar.harga))),
+                      subtitle: Text( money.format(int.parse(widget.uangKeluar.harga))),
                       trailing: Column(
                         children: [
                           Text(widget.uangKeluar.tanggal),

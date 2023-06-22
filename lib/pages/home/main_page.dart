@@ -6,10 +6,10 @@ import 'package:flutter_application/providers/auth_provider.dart';
 import 'package:flutter_application/providers/get_masuk_providers.dart';
 import 'package:flutter_application/providers/uang_masuk_provider.dart';
 import 'package:flutter_application/services/get_masuk_service.dart';
+import 'package:flutter_application/theme.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -26,6 +26,8 @@ import '../../models/user_model.dart';
 import '../../providers/get_keluar_providers.dart';
 import '../../services/auth_service.dart';
 import '../../services/auth_service.dart';
+import '../../theme.dart';
+import '../../theme.dart';
 import '../detail_keluar_page.dart';
 import '../detail_masuk_page.dart';
 
@@ -35,8 +37,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
- final currencyFormattter = NumberFormat.currency(locale:'ID', decimalDigits: 0, symbol: 'Rp');
- 
+  final money =
+      NumberFormat.currency(locale: 'ID', decimalDigits: 0, symbol: 'Rp.');
+  int index_color = 0;
+
   @override
   Widget build(BuildContext context) {
     GetMasukProvider getMasukProvider = Provider.of<GetMasukProvider>(context);
@@ -45,14 +49,15 @@ class _HomePageState extends State<HomePage> {
         Provider.of<GetKeluarProvider>(context);
 
     return Scaffold(
+      backgroundColor: Colors.grey.shade300,
       floatingActionButton: SpeedDial(
         icon: Icons.mode_rounded,
-        backgroundColor: Color.fromARGB(229, 255, 98, 0),
-        overlayColor: Color.fromARGB(229, 255, 98, 0),
+        backgroundColor: Colors.orange.shade900,
+        overlayColor: Colors.orange.shade900,
         overlayOpacity: 0.4,
         children: [
           SpeedDialChild(
-            backgroundColor: Color.fromARGB(229, 255, 98, 0),
+            backgroundColor: Colors.orange.shade900,
             child: Icon(
               Icons.add_rounded,
               color: Colors.white,
@@ -63,7 +68,7 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           SpeedDialChild(
-            backgroundColor: Color.fromARGB(229, 255, 98, 0),
+            backgroundColor:Colors.orange.shade900,
             child: Icon(
               Icons.add_card_outlined,
               color: Colors.white,
@@ -75,10 +80,10 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
+        color: Colors.grey.shade300,
         shape: CircularNotchedRectangle(),
         child: Padding(
-          padding: const EdgeInsets.only(top: 6.5, bottom: 6.5),
+          padding: const EdgeInsets.only(top: 7.5, bottom: 7.5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -86,14 +91,15 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   Navigator.pushNamed(context, '/home');
                   setState(() {
-                    
+                    index_color = 0;
                   });
                 },
                 icon: Icon(
                   Icons.home,
                   size: 30,
-               
-                     
+                  color: index_color == 0
+                      ? Colors.orange.shade900
+                      : Colors.orange.shade900,
                 ),
               ),
               SizedBox(width: 20),
@@ -101,21 +107,23 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   Navigator.pushNamed(context, '/profile');
                   setState(() {
-                    
+                    index_color = 0;
                   });
                 },
                 icon: Icon(
                   Icons.person,
                   size: 30,
-                  
+                  color: index_color == 0
+                      ? Colors.orange.shade900
+                      : Colors.orange.shade900,
                 ),
               ),
             ],
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
+      body: SingleChildScrollView(       
+        child: Column(          
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
@@ -124,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                   width: double.infinity,
                   height: 150,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(229, 255, 98, 0),
+                    color: Colors.orange.shade900,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(20),
                       bottomRight: Radius.circular(20),
@@ -149,13 +157,6 @@ class _HomePageState extends State<HomePage> {
                                       color: Colors.white,
                                       fontSize: 14)),
                             ),
-                            // Spacer(),
-                            // IconButton(
-                            //   onPressed: () {
-                            //     Navigator.pushNamed(context, '/profile');
-                            //   },
-                            //   icon: Icon(Icons.person, color: Colors.white),
-                            // ),
                           ],
                         ),
                       ),
@@ -207,10 +208,9 @@ class _HomePageState extends State<HomePage> {
                       return Container(
                         padding: const EdgeInsets.symmetric(horizontal: 30.0),
                         child: ListTile(
-                          title: Text(getMasukProvider.uangMasuk[index].name),
-                          subtitle: Text( 
-                              // currencyFormattter.format(int.parse(
-                              getMasukProvider.uangMasuk[index].price),
+                          title: Text(getMasukProvider.uangMasuk[index].name,style: TextStyle(fontWeight: FontWeight.w100, color: Colors.black),),
+                          subtitle: Text(money.format(int.parse(
+                              getMasukProvider.uangMasuk[index].price))),
                           trailing: IconButton(
                             onPressed: () {
                               Navigator.push(
@@ -225,10 +225,10 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.green,
                             ),
                           ),
-                          tileColor: Colors.white,
+                          tileColor: Colors.grey.shade200,
                           shape: RoundedRectangleBorder(
                               side: BorderSide(
-                                  color: Color.fromARGB(229, 255, 98, 0),
+                                  color: Colors.white,
                                   width: 1),
                               borderRadius: BorderRadius.circular(10)),
                         ),
@@ -238,7 +238,8 @@ class _HomePageState extends State<HomePage> {
                   );
                 } else {
                   return Center(
-                    child: CircularProgressIndicator(color: Colors.orange.shade500),
+                    child: CircularProgressIndicator(
+                        color: Colors.orange.shade900),
                   );
                 }
               },
@@ -287,12 +288,10 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.symmetric(horizontal: 30.0),
                         child: ListTile(
                           title: Text(
-                              getKeluarProvider.uangKeluar[index].namaBarang),
-                          subtitle: Text(
-                            
-                            //  currencyFormattter.format(int.parse(
-                              getKeluarProvider.uangKeluar[index].harga,),  
-                          
+                              getKeluarProvider.uangKeluar[index].namaBarang,style: TextStyle(fontWeight: FontWeight.w100, color: Colors.black),),
+                          subtitle: Text(money.format(int.parse(
+                            getKeluarProvider.uangKeluar[index].harga,
+                          ))),
                           trailing: IconButton(
                             onPressed: () {
                               Navigator.push(
@@ -308,10 +307,10 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.red,
                             ),
                           ),
-                          tileColor: Colors.white,
+                          tileColor: Colors.grey.shade200,
                           shape: RoundedRectangleBorder(
                               side: BorderSide(
-                                  color: Color.fromARGB(229, 255, 98, 0),
+                                  color: Colors.white,
                                   width: 1),
                               borderRadius: BorderRadius.circular(10)),
                         ),
@@ -321,8 +320,8 @@ class _HomePageState extends State<HomePage> {
                   );
                 } else {
                   return Center(
-                    child:
-                        CircularProgressIndicator(color: Colors.orange.shade500),
+                    child: CircularProgressIndicator(
+                        color: Colors.orange.shade900),
                   );
                 }
               },
@@ -331,209 +330,5 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-
-    // SizedBox(
-    //   height: 20,
-    // ),
-    // Row(
-    //   mainAxisAlignment: MainAxisAlignment.center,
-    //   children: <Widget>[
-    //     Container(
-    //       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-    //       decoration: BoxDecoration(
-    //         color: Colors.green,
-    //         borderRadius: BorderRadius.circular(5),
-    //       ),
-    //       child: TextButton(
-    //         style: ButtonStyle(
-    //             foregroundColor:
-    //                 MaterialStateProperty.all<Color>(Colors.white)),
-    //         onPressed: () {
-    //           Navigator.pushNamed(context, '/Umasuk');
-    //         },
-    //         child: Column(
-    //           children: [
-    //             Text('Add Admission Fee '),
-    //             Icon(Icons.add, size: 10, color: Colors.white),
-    //           ],
-    //         ),
-    //       ),
-    //     ),
-    //     SizedBox(width: 10),
-    //     Container(
-    //       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-    //       decoration: BoxDecoration(
-    //         color: Colors.redAccent,
-    //         borderRadius: BorderRadius.circular(5),
-    //       ),
-    //       child: TextButton(
-    //         style: ButtonStyle(
-    //             foregroundColor:
-    //                 MaterialStateProperty.all<Color>(Colors.white)),
-    //         onPressed: () {
-    //           Navigator.pushNamed(context, '/Ukeluar');
-    //         },
-    //         child: Column(
-    //           children: [
-    //             Text('Add Expenses Fee'),
-    //             Icon(Icons.add, size: 10, color: Colors.white),
-    //           ],
-    //         ),
-    //       ),
-    //     ),
-    //   ],
-    // ),
-    //         SizedBox(
-    //           height: 20,
-    //         ),
-    //         Padding(
-    //           padding: const EdgeInsets.only(right: 400, left: 30),
-    //           child: Column(
-    //               mainAxisAlignment: MainAxisAlignment.center,
-    //               children: [
-    //                 Row(
-    //                   children: [
-    //                     Container(
-    //                       child: const Text(
-    //                         'Addmission Fee',
-    //                         style: TextStyle(
-    //                             fontSize: 17,
-    //                             fontWeight: FontWeight.bold,
-    //                             color: Colors.black),
-    //                       ),
-    //                     )
-    //                   ],
-    //                 )
-    //               ]),
-    //         ),
-
-    //         //getlistgetuangmasuk
-    //         const SizedBox(height: 10),
-    //         FutureBuilder(
-    //           future: getMasukProvider.getUangMasuk(authProvider.user.token),
-    //           builder: ((context, snapshot) {
-    //             if (snapshot.hasData) {
-    //               return ListView.builder(
-    //                   scrollDirection: Axis.vertical,
-    //                   shrinkWrap: true,
-    //                   itemCount: getMasukProvider.uangMasuk.length,
-    //                   itemBuilder: (context, index) {
-    //                     return Card(
-    //                       elevation: 4,
-    //                       child: ListTile(
-    //                         title: Text(getMasukProvider.uangMasuk[index].name),
-    //                         subtitle: Text("Rp." +
-    //                             getMasukProvider.uangMasuk[index].price),
-    //                         trailing: Column(
-    //                           children: [
-    //                             Text(getMasukProvider.uangMasuk[index].date)
-    //                           ],
-    //                         ),
-    //                         leading: Container(
-    //                           child: GestureDetector(
-    //                             child:
-    //                                 Icon(Icons.download, color: Colors.green),
-    //                             onTap: () async {
-    //                               Navigator.push(
-    //                                   context,
-    //                                   MaterialPageRoute(
-    //                                       builder: (context) =>
-    //                                           DetailUangMasukPage(
-    //                                               uangMasuk: getMasukProvider
-    //                                                   .uangMasuk[index])));
-    //                             },
-    //                           ),
-    //                           decoration: BoxDecoration(
-    //                             color: Colors.white,
-    //                             borderRadius: BorderRadius.circular(10),
-    //                           ),
-    //                         ),
-    //                       ),
-    //                     );
-    //                   });
-    //             } else if (snapshot.hasError) {
-    //               return Text('${snapshot.error}');
-    //             }
-    //             return const CircularProgressIndicator();
-    //           }),
-    //         ),
-    //         SizedBox(
-    //           height: 20,
-    //         ),
-    //         Padding(
-    //           padding: const EdgeInsets.only(right: 400, left: 30),
-    //           child: Column(
-    //               mainAxisAlignment: MainAxisAlignment.center,
-    //               children: [
-    //                 Row(
-    //                   children: [
-    //                     Container(
-    //                       child: const Text(
-    //                         'Expenses Fee',
-    //                         style: TextStyle(
-    //                             fontSize: 17,
-    //                             fontWeight: FontWeight.bold,
-    //                             color: Colors.black),
-    //                       ),
-    //                     )
-    //                   ],
-    //                 ),
-    //               ]),
-    //         ),
-    //         //getlistgetuangkeluar
-    //         const SizedBox(height: 10),
-    //         FutureBuilder(
-    //           future: getKeluarProvider.getUangKeluar(authProvider.user.token),
-    //           builder: ((context, snapshot) {
-    //             if (snapshot.hasData) {
-    //               return ListView.builder(
-    //                   scrollDirection: Axis.vertical,
-    //                   shrinkWrap: true,
-    //                   itemCount: getKeluarProvider.uangKeluar.length,
-    //                   itemBuilder: (context, index) {
-    //                     return Card(
-    //                       elevation: 4,
-    //                       child: ListTile(
-    //                         title: Text(
-    //                             getKeluarProvider.uangKeluar[index].namaBarang),
-    //                         subtitle: Text("Rp." +
-    //                             getKeluarProvider.uangKeluar[index].harga),
-    //                         trailing: Column(
-    //                           children: [
-    //                             Text(
-    //                                 getKeluarProvider.uangKeluar[index].tanggal)
-    //                           ],
-    //                         ),
-    //                         leading: Container(
-    //                           child: GestureDetector(
-    //                             child: Icon(Icons.upload, color: Colors.red),
-    //                             onTap: () async {
-    //                               Navigator.push(
-    //                                   context,
-    //                                   MaterialPageRoute(
-    //                                       builder: (context) =>
-    //                                           DetailUangKeluarPage(
-    //                                               uangKeluar: getKeluarProvider
-    //                                                   .uangKeluar[index])));
-    //                             },
-    //                           ),
-    //                           decoration: BoxDecoration(
-    //                             color: Colors.white,
-    //                             borderRadius: BorderRadius.circular(10),
-    //                           ),
-    //                         ),
-    //                       ),
-    //                     );
-    //                   });
-    //             } else if (snapshot.hasError) {
-    //               return Text('${snapshot.error}');
-    //             }
-    //             return const CircularProgressIndicator();
-    //           }),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }

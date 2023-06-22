@@ -47,6 +47,6 @@ class _SplashPageState extends State<SplashPage> {
 
   Widget loading() {
     return LoadingAnimationWidget.stretchedDots(
-        color: Color.fromARGB(229, 255, 98, 0), size: 50);
+        color:  Colors.orange.shade900, size: 50);
   }
 }

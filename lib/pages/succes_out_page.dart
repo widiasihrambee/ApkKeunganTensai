@@ -57,7 +57,7 @@ class SuccessOutPage extends StatelessWidget {
                       context, '/home', (route) => false);
                 },
                 style: TextButton.styleFrom(
-                  backgroundColor: Color.fromARGB(229, 255, 98, 0),
+                  backgroundColor:  Colors.orange.shade900,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),

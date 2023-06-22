@@ -6,6 +6,7 @@ import 'package:flutter_application/providers/auth_provider.dart';
 import 'package:flutter_application/providers/uang_masuk_provider.dart';
 import 'package:flutter_application/theme.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
@@ -31,13 +32,20 @@ class _MainMasukPageState extends State<MainMasukPage> {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
 
     handleSubmit() async {
+      showDialog(
+    context: context, 
+    builder: (context){
+      return Center(child: CircularProgressIndicator(color: Color.fromARGB(229, 255, 98, 0),));},
+    );
       if (await uangMasukProvider.uangMasuk(
         authProvider.user.token,
         nameController.text,
         descriptionController.text,
         priceController.text,
         dateController.text,
-      )) {
+      ))
+       Navigator.of(context).pop();      
+       {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.green,
@@ -59,13 +67,13 @@ class _MainMasukPageState extends State<MainMasukPage> {
           top: 30,
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               'Add New Admission Fee',
-              style: TextStyle(
+              style: GoogleFonts.bebasNeue(
                 fontSize: 20,
-                fontWeight: semiBold,
+                
               ),
             ),
             SizedBox(
@@ -102,10 +110,10 @@ class _MainMasukPageState extends State<MainMasukPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: Color.fromARGB(229, 255, 98, 0),
+                  color:Colors.white,
                 ),
               ),
               child: Center(
@@ -113,7 +121,7 @@ class _MainMasukPageState extends State<MainMasukPage> {
                   children: [
                     Icon(
                       Icons.assignment_outlined,
-                      color: Colors.grey,
+                      color: Colors.orange.shade900,
                     ),
                     SizedBox(
                       width: 10,
@@ -159,10 +167,10 @@ class _MainMasukPageState extends State<MainMasukPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: Color.fromARGB(229, 255, 98, 0),
+                  color:Colors.white,
                 ),
               ),
               child: Center(
@@ -170,16 +178,13 @@ class _MainMasukPageState extends State<MainMasukPage> {
                   children: [
                     Icon(
                       Icons.attach_money,
-                      color: Colors.grey,
+                      color: Colors.orange.shade900,
                     ),
                     SizedBox(
                       width: 10,
                     ),
                     Expanded(
-                      child: TextFormField(
-                        // inputFormatters: [
-                        //   FilteringTextInputFormatter.digitsOnly, CurrencyFormat()
-                        // ],
+                      child: TextFormField(                        
                         controller: priceController,
                         decoration: InputDecoration.collapsed(
                           hintText: 'Enter Price',
@@ -219,10 +224,10 @@ class _MainMasukPageState extends State<MainMasukPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: Color.fromARGB(229, 255, 98, 0),
+                  color: Colors.white,
                 ),
               ),
               child: Center(
@@ -230,7 +235,7 @@ class _MainMasukPageState extends State<MainMasukPage> {
                   children: [
                     Icon(
                       Icons.description,
-                      color: Colors.grey,
+                      color: Colors.orange.shade900,
                     ),
                     SizedBox(
                       width: 10,
@@ -277,10 +282,10 @@ class _MainMasukPageState extends State<MainMasukPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: Color.fromARGB(229, 255, 98, 0),
+                  color: Colors.white
                 ),
               ),
               child: Center(
@@ -288,7 +293,7 @@ class _MainMasukPageState extends State<MainMasukPage> {
                   children: [
                     Icon(
                       Icons.date_range,
-                      color: Colors.grey,
+                      color: Colors.orange.shade900
                     ),
                     SizedBox(
                       width: 10,
@@ -337,7 +342,7 @@ class _MainMasukPageState extends State<MainMasukPage> {
             handleSubmit();
           },
           style: TextButton.styleFrom(
-            backgroundColor: Color.fromARGB(229, 255, 98, 0),
+            backgroundColor: Colors.orange.shade900,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
@@ -357,12 +362,12 @@ class _MainMasukPageState extends State<MainMasukPage> {
       child: Scaffold(
         floatingActionButton: SpeedDial(
           icon: Icons.mode_rounded,
-          backgroundColor: Color.fromARGB(229, 255, 98, 0),
-          overlayColor: Color.fromARGB(229, 255, 98, 0),
+          backgroundColor: Colors.orange.shade900,
+          overlayColor:  Colors.orange.shade900,
           overlayOpacity: 0.4,
           children: [
             SpeedDialChild(
-              backgroundColor: Color.fromARGB(229, 255, 98, 0),
+              backgroundColor:  Colors.orange.shade900,
               child: Icon(
                 Icons.home,
                 color: Colors.white,
@@ -373,7 +378,7 @@ class _MainMasukPageState extends State<MainMasukPage> {
               },
             ),
             SpeedDialChild(
-              backgroundColor: Color.fromARGB(229, 255, 98, 0),
+              backgroundColor:  Colors.orange.shade900,
               child: Icon(
                 Icons.add_card_outlined,
                 color: Colors.white,
@@ -384,7 +389,7 @@ class _MainMasukPageState extends State<MainMasukPage> {
           ],
         ),
         resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey.shade300,
         body: Container(
           margin: EdgeInsets.symmetric(
             horizontal: defaultMargin,

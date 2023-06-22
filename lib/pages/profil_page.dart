@@ -21,81 +21,83 @@ class _ProfileState extends State<Profile> {
     GetKeluarProvider getKeluarProvider =
         Provider.of<GetKeluarProvider>(context);
     return Scaffold(
-        floatingActionButton: SpeedDial(
-          icon: Icons.mode_rounded,
-          backgroundColor: Color.fromARGB(229, 255, 98, 0),
-          overlayColor: Color.fromARGB(229, 255, 98, 0),
-          overlayOpacity: 0.4,
-          children: [
-            SpeedDialChild(
-              backgroundColor: Color.fromARGB(229, 255, 98, 0),
-              child: Icon(
-                Icons.add_rounded,
-                color: Colors.white,
-              ),
-              label: 'Addmission Fee',
-              onTap: () {
-                Navigator.pushNamed(context, '/Umasuk');
-              },
+      backgroundColor: Colors.grey.shade300,
+      floatingActionButton: SpeedDial(
+        icon: Icons.mode_rounded,
+        backgroundColor: Colors.orange.shade900,
+        overlayColor: Colors.orange.shade900,
+        overlayOpacity: 0.4,
+        children: [
+          SpeedDialChild(
+            backgroundColor: Colors.orange.shade900,
+            child: Icon(
+              Icons.add_rounded,
+              color: Colors.white,
             ),
-            SpeedDialChild(
-              backgroundColor: Color.fromARGB(229, 255, 98, 0),
-              child: Icon(
-                Icons.add_card_outlined,
-                color: Colors.white,
-              ),
-              label: 'Expenses Fee',
-              onTap: () => Navigator.pushNamed(context, '/Ukeluar'),
+            label: 'Addmission Fee',
+            onTap: () {
+              Navigator.pushNamed(context, '/Umasuk');
+            },
+          ),
+          SpeedDialChild(
+            backgroundColor: Colors.orange.shade900,
+            child: Icon(
+              Icons.add_card_outlined,
+              color: Colors.white,
             ),
-          ],
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: BottomAppBar(
-          color: Colors.white,
-          shape: CircularNotchedRectangle(),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 7.5, bottom: 7.5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/home');
-                    setState(() {
-                      index_color = 0;
-                    });
-                  },
-                  icon: Icon(
-                    Icons.home,
-                    size: 30,
-                    color: index_color == 0
-                        ? Color.fromARGB(229, 255, 98, 0)
-                        : Color.fromARGB(229, 255, 98, 0),
-                  ),
+            label: 'Expenses Fee',
+            onTap: () => Navigator.pushNamed(context, '/Ukeluar'),
+          ),
+        ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.grey.shade300,
+        shape: CircularNotchedRectangle(),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 7.5, bottom: 7.5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/home');
+                  setState(() {
+                    index_color = 0;
+                  });
+                },
+                icon: Icon(
+                  Icons.home,
+                  size: 30,
+                  color: index_color == 0
+                      ? Colors.orange.shade900
+                      : Colors.orange.shade900,
                 ),
-                SizedBox(width: 20),
-                IconButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/profile');
-                    setState(() {
-                      index_color = 0;
-                    });
-                  },
-                  icon: Icon(
-                    Icons.person,
-                    size: 30,
-                    color: index_color == 0
-                        ? Color.fromARGB(229, 255, 98, 0)
-                        : Color.fromARGB(229, 255, 98, 0),
-                  ),
+              ),
+              SizedBox(width: 20),
+              IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/profile');
+                  setState(() {
+                    index_color = 0;
+                  });
+                },
+                icon: Icon(
+                  Icons.person,
+                  size: 30,
+                  color: index_color == 0
+                      ? Colors.orange.shade900
+                      : Colors.orange.shade900,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-        body: Column(
+      ),
+      body: SingleChildScrollView(
+        child: Column(
           children: [
-            SizedBox(height: 40),
+            SizedBox(height: 30),
             Stack(
               children: [
                 Padding(
@@ -107,7 +109,7 @@ class _ProfileState extends State<Profile> {
                           children: <Widget>[
                             CircleAvatar(
                               radius: 25,
-                              backgroundColor: Colors.grey,
+                              backgroundColor: Colors.white,                              
                               backgroundImage: AssetImage('assets/user.png'),
                             ),
                           ],
@@ -122,20 +124,28 @@ class _ProfileState extends State<Profile> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 40),
-                    SafeArea(
+                    const SizedBox(height: 50),
+                    Container(
+                      width: double.infinity,
+                      height: 500,
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade200,
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(50),
+                          )),
                       child: Column(
                         children: [
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 40.0),
                             child: ListTile(
                               title: Text(
-                                'Update Profile',
+                                authProvider.user.name,
                                 style: GoogleFonts.poppins(),
                               ),
                               shape: RoundedRectangleBorder(
                                   side: BorderSide(
-                                    color: Color.fromARGB(229, 255, 98, 0),
+                                    color: Colors.orange.shade900,
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(10)),
@@ -158,40 +168,12 @@ class _ProfileState extends State<Profile> {
                             padding: EdgeInsets.symmetric(horizontal: 40.0),
                             child: ListTile(
                               title: Text(
-                                'Update Pasword',
-                                style: GoogleFonts.poppins(),
-                              ),
-                              shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                    color: Color.fromARGB(229, 255, 98, 0),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10)),
-                              trailing: Wrap(
-                                children: [
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
-                                      Icons.lock,
-                                      size: 20,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 40.0),
-                            child: ListTile(
-                              title: Text(
                                 'About',
                                 style: GoogleFonts.poppins(),
                               ),
                               shape: RoundedRectangleBorder(
                                   side: BorderSide(
-                                    color: Color.fromARGB(229, 255, 98, 0),
+                                    color: Colors.orange.shade900,
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(10)),
@@ -200,7 +182,7 @@ class _ProfileState extends State<Profile> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 40),
+                          SizedBox(height: 5),
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 40.0),
                             child: ListTile(
@@ -210,7 +192,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               shape: RoundedRectangleBorder(
                                   side: BorderSide(
-                                    color: Color.fromARGB(229, 255, 98, 0),
+                                    color: Colors.orange.shade900,
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(10)),
@@ -238,7 +220,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               shape: RoundedRectangleBorder(
                                   side: BorderSide(
-                                    color: Color.fromARGB(229, 255, 98, 0),
+                                    color: Colors.orange.shade900,
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(10)),
@@ -266,7 +248,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               shape: RoundedRectangleBorder(
                                   side: BorderSide(
-                                    color: Color.fromARGB(229, 255, 98, 0),
+                                    color: Colors.orange.shade900,
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(10)),
@@ -290,8 +272,10 @@ class _ProfileState extends State<Profile> {
                   ]),
                 ),
               ],
-            )
+            ),
           ],
-        ));
+        ),
+      ),
+    );
   }
 }
