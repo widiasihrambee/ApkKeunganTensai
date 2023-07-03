@@ -5,6 +5,7 @@ import 'package:flutter_application/providers/auth_provider.dart';
 import 'package:flutter_application/theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class SignUpPage extends StatelessWidget {
   TextEditingController nameController = TextEditingController(text: '');
@@ -26,8 +27,8 @@ class SignUpPage extends StatelessWidget {
         password: passwordController.text,
         confirmPassword: passwordController.text,
       ))
-      Navigator.of(context).pop();
-       {
+      
+       {Navigator.of(context).pop();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.green,
@@ -37,14 +38,22 @@ class SignUpPage extends StatelessWidget {
             ),
           ),
         );
+        //Navigator.of(context).pop();
         Navigator.pushNamed(context, '/home');
+      }else{
+         Alert(
+          context: context,
+          title: "Owh,Failed Register!",
+          desc: "Try Again!",
+          image: Image.asset('assets/error.png',width: 60, height: 60),
+        ).show();
       }
     }
 
     Widget header() {
       return SingleChildScrollView(
         padding: EdgeInsets.only(
-          top: 35,
+          top: 50,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

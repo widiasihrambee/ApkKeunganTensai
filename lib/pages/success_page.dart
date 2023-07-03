@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/theme.dart';
-
 import 'package:lottie/lottie.dart';
 
 class SuccessPage extends StatelessWidget {
@@ -25,9 +24,6 @@ class SuccessPage extends StatelessWidget {
             // Image.asset(
             //   'assets/success.png',
             //   width: 300,
-            // ),
-            // SizedBox(
-            //   height: 20,
             // ),
             SizedBox(
               width: 200,

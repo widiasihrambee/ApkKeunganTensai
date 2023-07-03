@@ -8,7 +8,7 @@ import '../models/get_keluar_model.dart';
 import '../models/get_masuk_model.dart';
 
 class UangKeluarService {
-  String baseUrl = 'https://api-keuangan.wikukarno.id/api';
+  String baseUrl = 'https://keuangan-tensai.wikukarno.id/api';
 
   Future<List<KeluarModel>> getUangKeluar(String token) async {
     var url = '$baseUrl/uang-keluar';

@@ -17,6 +17,7 @@ class SuccessOutPage extends StatelessWidget {
     }
 
     Widget content() {
+      
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -9,6 +9,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 
 class MainMasukPage extends StatefulWidget {
@@ -44,8 +45,8 @@ class _MainMasukPageState extends State<MainMasukPage> {
         priceController.text,
         dateController.text,
       ))
-       Navigator.of(context).pop();      
-       {
+           
+       { Navigator.of(context).pop(); 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.green,
@@ -58,13 +59,20 @@ class _MainMasukPageState extends State<MainMasukPage> {
         );
         Navigator.pushNamedAndRemoveUntil(
             context, '/success', (route) => false);
+              }else{
+         Alert(
+          context: context,
+          title: "Admission Fee Invalid Data!",
+          desc: "Try Again!",
+          image: Image.asset('assets/data.png',width: 60, height: 60),
+        ).show();
       }
     }
 
     Widget header() {
       return Container(
         margin: EdgeInsets.only(
-          top: 30,
+          top: 50,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

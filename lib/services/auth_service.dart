@@ -4,8 +4,8 @@ import 'package:flutter_application/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-  String baseUrl = 'https://api-keuangan.wikukarno.id/api';
-
+  String baseUrl = 'https://keuangan-tensai.wikukarno.id/api';
+  
 
   Future<UserModel> register({
     String name,

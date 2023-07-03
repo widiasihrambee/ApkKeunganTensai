@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_application/pages/success_page.dart';
 import 'package:flutter/services.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../home/main_page.dart';
 import 'package:intl/intl.dart';
@@ -50,7 +51,7 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
     Widget header() {
       return Container(
         margin: EdgeInsets.only(
-          top: 30,
+          top: 50,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -75,7 +76,7 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
 
     Widget namaBarangInput() {
       return Container(
-        margin: EdgeInsets.only(top: 10),
+        margin: EdgeInsets.only(top: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -394,8 +395,8 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
         metodePembayaranController.text,
         tanggalPembelianController.text,
       )) 
-       Navigator.of(context).pop();
-      {
+      
+      { Navigator.of(context).pop();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.green,
@@ -408,6 +409,13 @@ class _MainKeluarPageState extends State<MainKeluarPage> {
         );
         Navigator.pushNamedAndRemoveUntil(
             context, '/succes_out_page', (route) => false);
+         }else{
+         Alert(
+          context: context,
+          title: "Expenses Fee Invalid Data!",
+          desc: "Try Again!",
+          image: Image.asset('assets/data.png',width: 60, height: 60),
+        ).show();
       }
     }
 

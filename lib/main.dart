@@ -5,6 +5,7 @@ import 'package:flutter_application/pages/Umasuk/main_page.dart';
 
 import 'package:flutter_application/pages/detail_keluar_page.dart';
 import 'package:flutter_application/pages/detail_masuk_page.dart';
+import 'package:flutter_application/pages/home/home_keluar.dart';
 import 'package:flutter_application/pages/home/main_page.dart';
 import 'package:flutter_application/pages/profil_page.dart';
 import 'package:flutter_application/pages/auth/sign_in_page.dart';
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
           '/detailmasukpage': (context) => DetailUangMasukPage(),
           '/detailkeluarpage': (context) => DetailUangKeluarPage(),
           '/profile':(context) => Profile(),
+          //'/homekeluar':(context) => HomeKeluar(),
           //  '/coba':(context) => Login(),
           
         

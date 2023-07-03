@@ -5,6 +5,7 @@ import 'package:flutter_application/providers/auth_provider.dart';
 import 'package:flutter_application/theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/user_model.dart';
@@ -18,22 +19,26 @@ class _SignInPageState extends State<SignInPage> {
   TextEditingController emailController = TextEditingController(text: '');
 
   TextEditingController passwordController = TextEditingController(text: '');
- 
+
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     handleSignIn() async {
-       showDialog(
-    context: context, 
-    builder: (context){
-      return Center(child: CircularProgressIndicator(color: Color.fromARGB(229, 255, 98, 0),));},
-    );
+      showDialog(
+          context: context,
+          builder: (context) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Color.fromRGBO(230, 81, 0, 1),
+              ),
+            );
+          });
+
       if (await authProvider.login(
         email: emailController.text,
         password: passwordController.text,
-      )) 
+      )) {
         Navigator.of(context).pop();
-      {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.green,
@@ -43,27 +48,34 @@ class _SignInPageState extends State<SignInPage> {
             ),
           ),
         );
-        Navigator.pushNamed(context, '/home');        
+
+        Navigator.pushNamed(context, '/home');
+      } else {
+        Alert(
+          context: context,
+          title: "Owh,Failed Login!",
+          desc: "Try Again!",
+          image: Image.asset('assets/error.png', width: 60, height: 60),
+        ).show();
       }
     }
 
     Widget header() {
-      return SingleChildScrollView(       
+      return SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,        
-          children: [            
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
             Container(
               width: 250,
               height: 150,
               decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/logo.png'))),
+                  image: DecorationImage(image: AssetImage('assets/logo.png'))),
             ),
             Center(
               child: Text(
                 'Hello!',
                 style: GoogleFonts.bebasNeue(
-                  fontSize: 24,                
+                  fontSize: 24,
                 ),
               ),
             ),
@@ -72,13 +84,12 @@ class _SignInPageState extends State<SignInPage> {
                 'Welcome To Finance Tensai!',
                 style: TextStyle(
                   fontSize: 15,
-                 
                 ),
               ),
             ),
           ],
         ),
-       );
+      );
     }
 
     Widget emailInput() {
@@ -106,7 +117,7 @@ class _SignInPageState extends State<SignInPage> {
                   color: Colors.grey.shade200,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color:  Colors.white,
+                    color: Colors.white,
                   )),
               child: Center(
                 child: Row(
@@ -162,7 +173,7 @@ class _SignInPageState extends State<SignInPage> {
                   color: Colors.grey.shade200,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color:  Colors.white,
+                    color: Colors.white,
                   )),
               child: Center(
                 child: Row(
@@ -193,19 +204,18 @@ class _SignInPageState extends State<SignInPage> {
         ),
       );
     }
-  
+
     Widget signInButton() {
-      
       return Container(
-        height:50,
+        height: 50,
         width: double.infinity,
         margin: EdgeInsets.only(top: 30),
         child: TextButton(
           onPressed: () {
-             handleSignIn();
+            handleSignIn();
           },
           style: TextButton.styleFrom(
-            backgroundColor:  Colors.orange.shade900,
+            backgroundColor: Colors.orange.shade900,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
@@ -221,7 +231,7 @@ class _SignInPageState extends State<SignInPage> {
       );
     }
 
-Widget footer() {
+    Widget footer() {
       return Container(
         margin: EdgeInsets.only(bottom: 15),
         child: Row(
@@ -233,10 +243,10 @@ Widget footer() {
             ),
             GestureDetector(
               onTap: () {
-                 Navigator.pushNamed(context, '/sign-up');
+                Navigator.pushNamed(context, '/sign-up');
               },
               child: Text(
-             'Sign Up',
+                'Sign Up',
                 style: purpleTextStyle.copyWith(
                   fontSize: 12,
                   fontWeight: medium,
@@ -248,7 +258,6 @@ Widget footer() {
         ),
       );
     }
-   
 
     return SafeArea(
       child: Scaffold(

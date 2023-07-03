@@ -97,7 +97,7 @@ class _ProfileState extends State<Profile> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 30),
+            SizedBox(height: 70),
             Stack(
               children: [
                 Padding(
@@ -119,7 +119,7 @@ class _ProfileState extends State<Profile> {
                           child: Text(
                             'Hi, ' + authProvider.user.name,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 14),
+                                fontWeight: FontWeight.bold, fontSize: 20),
                           ),
                         ),
                       ],
@@ -127,7 +127,7 @@ class _ProfileState extends State<Profile> {
                     const SizedBox(height: 50),
                     Container(
                       width: double.infinity,
-                      height: 500,
+                      height: 600,
                       decoration: BoxDecoration(
                           color: Colors.grey.shade200,
                           border: Border.all(color: Colors.white),
@@ -141,14 +141,14 @@ class _ProfileState extends State<Profile> {
                             child: ListTile(
                               title: Text(
                                 authProvider.user.name,
-                                style: GoogleFonts.poppins(),
+                                style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.bold),
                               ),
-                              shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                    color: Colors.orange.shade900,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10)),
+                              // shape: RoundedRectangleBorder(
+                              //     side: BorderSide(
+                              //       color: Colors.orange.shade900,
+                              //       width: 1,
+                              //     ),
+                              //     borderRadius: BorderRadius.circular(10)),
                               trailing: Wrap(
                                 children: [
                                   IconButton(
@@ -163,20 +163,20 @@ class _ProfileState extends State<Profile> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 10),
+                          SizedBox(height: 5),
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 40.0),
                             child: ListTile(
                               title: Text(
                                 'About',
-                                style: GoogleFonts.poppins(),
+                                style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.bold),
                               ),
-                              shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                    color: Colors.orange.shade900,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10)),
+                              // shape: RoundedRectangleBorder(
+                              //     side: BorderSide(
+                              //       color: Colors.orange.shade900,
+                              //       width: 1,
+                              //     ),
+                              //     borderRadius: BorderRadius.circular(10)),
                               trailing: Wrap(
                                 children: [],
                               ),
@@ -188,14 +188,14 @@ class _ProfileState extends State<Profile> {
                             child: ListTile(
                               title: Text(
                                 'Privacy Policy',
-                                style: GoogleFonts.poppins(),
+                                style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.bold),
                               ),
-                              shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                    color: Colors.orange.shade900,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10)),
+                              // shape: RoundedRectangleBorder(
+                              //     side: BorderSide(
+                              //       color: Colors.orange.shade900,
+                              //       width: 1,
+                              //     ),
+                              //     borderRadius: BorderRadius.circular(10)),
                               trailing: Wrap(
                                 children: [
                                   IconButton(
@@ -210,20 +210,20 @@ class _ProfileState extends State<Profile> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 10),
+                          SizedBox(height: 5),
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 40.0),
                             child: ListTile(
                               title: Text(
                                 'Terms Conditions',
-                                style: GoogleFonts.poppins(),
+                                style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.bold),
                               ),
-                              shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                    color: Colors.orange.shade900,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10)),
+                              // shape: RoundedRectangleBorder(
+                              //     side: BorderSide(
+                              //       color: Colors.orange.shade900,
+                              //       width: 1,
+                              //     ),
+                              //     borderRadius: BorderRadius.circular(10)),
                               trailing: Wrap(
                                 children: [
                                   IconButton(
@@ -238,20 +238,20 @@ class _ProfileState extends State<Profile> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 10),
+                          SizedBox(height: 5),
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 40.0),
                             child: ListTile(
                               title: Text(
                                 'Rating Apps',
-                                style: GoogleFonts.poppins(),
+                                style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.bold),
                               ),
-                              shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                    color: Colors.orange.shade900,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10)),
+                              // shape: RoundedRectangleBorder(
+                              //     side: BorderSide(
+                              //       color: Colors.orange.shade900,
+                              //       width: 1,
+                              //     ),
+                              //     borderRadius: BorderRadius.circular(10)),
                               trailing: Wrap(
                                 children: [
                                   IconButton(
@@ -259,7 +259,7 @@ class _ProfileState extends State<Profile> {
                                     icon: Icon(
                                       Icons.star,
                                       size: 20,
-                                      color: Colors.grey.shade800,
+                                      color: Colors.black,
                                     ),
                                   ),
                                 ],

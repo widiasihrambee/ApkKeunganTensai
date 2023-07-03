@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           SpeedDialChild(
-            backgroundColor:Colors.orange.shade900,
+            backgroundColor: Colors.orange.shade900,
             child: Icon(
               Icons.add_card_outlined,
               color: Colors.white,
@@ -122,8 +122,8 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: SingleChildScrollView(       
-        child: Column(          
+      body: SingleChildScrollView(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
@@ -141,7 +141,7 @@ class _HomePageState extends State<HomePage> {
                   child: Stack(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(left: 21, right: 21, top: 25),
+                        padding: EdgeInsets.only(left: 21, right: 21, top: 55),
                         child: Row(
                           children: [
                             CircleAvatar(
@@ -155,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
-                                      fontSize: 14)),
+                                      fontSize: 20)),
                             ),
                           ],
                         ),
@@ -165,9 +165,52 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
+            // const SizedBox(
+            //   height: 30,
+            // ),
+            // Center(
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       TextButton(onPressed: (){
+            //         Navigator.pushNamed(context, '/home');
+            //        },
+            //        child: Text("Addmission Fee",style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+            //        style: ButtonStyle(
+                    
+            //         foregroundColor: MaterialStateProperty.all(Colors.black),
+            //         backgroundColor: MaterialStateProperty.all(Colors.white),
+            //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            //           RoundedRectangleBorder(
+            //             borderRadius: BorderRadius.circular(5),
+            //             side: BorderSide(color: Colors.grey.shade200),
+            //           ),
+            //         ),
+            //        ),
+            //        ),
+            //        SizedBox(width: 5,height: 20,),
+            //        TextButton(onPressed: (){
+            //         Navigator.pushNamed(context, '/homekeluar');
+            //        },
+            //        child: Text("Expensis Fee",style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+            //        style: ButtonStyle(
+            //         foregroundColor: MaterialStateProperty.all(Colors.black),
+            //         backgroundColor: MaterialStateProperty.all(Colors.white),
+            //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            //           RoundedRectangleBorder(
+            //             borderRadius: BorderRadius.circular(5),
+            //             side: BorderSide(color: Colors.grey.shade200),
+            //           ),
+            //         ),
+            //        ),
+            //        ),
+            //     ],
+            //   ),
+            // ),
             const SizedBox(
               height: 30,
             ),
+          
             Padding(
               padding: const EdgeInsets.only(
                 right: 50,
@@ -178,12 +221,10 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     children: [
                       Container(
-                        child: const Text(
+                        child: Text(
                           'Addmission Fee',
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                          style: GoogleFonts.bebasNeue(
+                            fontSize: 20,
                           ),
                         ),
                       ),
@@ -193,7 +234,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 5,
             ),
             //getlistUangMasuk
             FutureBuilder(
@@ -208,7 +249,12 @@ class _HomePageState extends State<HomePage> {
                       return Container(
                         padding: const EdgeInsets.symmetric(horizontal: 30.0),
                         child: ListTile(
-                          title: Text(getMasukProvider.uangMasuk[index].name,style: TextStyle(fontWeight: FontWeight.w100, color: Colors.black),),
+                          title: Text(
+                            getMasukProvider.uangMasuk[index].name,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w100,
+                                color: Colors.black),
+                          ),
                           subtitle: Text(money.format(int.parse(
                               getMasukProvider.uangMasuk[index].price))),
                           trailing: IconButton(
@@ -227,9 +273,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           tileColor: Colors.grey.shade200,
                           shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                  color: Colors.white,
-                                  width: 1),
+                              side: BorderSide(color: Colors.white, width: 1),
                               borderRadius: BorderRadius.circular(10)),
                         ),
                         margin: EdgeInsets.only(bottom: 10),
@@ -257,12 +301,10 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     children: [
                       Container(
-                        child: const Text(
+                        child: Text(
                           'Expenses Fee',
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                          style: GoogleFonts.bebasNeue(
+                            fontSize: 20,
                           ),
                         ),
                       ),
@@ -272,7 +314,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 5,
             ),
             //getlist UangKeluar
             FutureBuilder(
@@ -288,7 +330,11 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.symmetric(horizontal: 30.0),
                         child: ListTile(
                           title: Text(
-                              getKeluarProvider.uangKeluar[index].namaBarang,style: TextStyle(fontWeight: FontWeight.w100, color: Colors.black),),
+                            getKeluarProvider.uangKeluar[index].namaBarang,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w100,
+                                color: Colors.black),
+                          ),
                           subtitle: Text(money.format(int.parse(
                             getKeluarProvider.uangKeluar[index].harga,
                           ))),
@@ -309,9 +355,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           tileColor: Colors.grey.shade200,
                           shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                  color: Colors.white,
-                                  width: 1),
+                              side: BorderSide(color: Colors.white, width: 1),
                               borderRadius: BorderRadius.circular(10)),
                         ),
                         margin: EdgeInsets.only(bottom: 10),
@@ -327,7 +371,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ],
-        ),
+        )
       ),
     );
   }

@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import '../models/get_masuk_model.dart';
 
 class MasukService {
-  String baseUrl = 'https://api-keuangan.wikukarno.id/api';
+  String baseUrl = 'https://keuangan-tensai.wikukarno.id/api';
 
   Future<List<MasukModel>> getUangMasuk(String token) async {
     var url = '$baseUrl/uang-masuk';

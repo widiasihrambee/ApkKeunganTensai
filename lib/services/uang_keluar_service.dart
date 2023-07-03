@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UangKeluarService {
-  String baseUrl = 'https://api-keuangan.wikukarno.id/api';
+  String baseUrl = 'https://keuangan-tensai.wikukarno.id/api';
 
   Future uangKeluar(
       String token, kategori_id, nama_barang, harga, metode_pembayaran, tanggal_pembelian) async {
