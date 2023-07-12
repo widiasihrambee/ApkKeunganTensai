@@ -58,6 +58,12 @@ class _SignInPageState extends State<SignInPage> {
           image: Image.asset('assets/error.png', width: 60, height: 60),
         ).show();
       }
+      //untuk session
+      saveSession(String email) async {
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        await pref.setString("email", email);
+        await pref.setBool("is_login", true);
+      }
     }
 
     Widget header() {
